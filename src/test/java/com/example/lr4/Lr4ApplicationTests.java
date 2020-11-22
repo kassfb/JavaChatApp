@@ -5,6 +5,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.lr4.ChatClient;
+import  com.example.lr4.ChatController;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.junit.Assert;
+import org.junit.Ignore;
+//import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import java.io.IOException;
 
 @SpringBootTest
