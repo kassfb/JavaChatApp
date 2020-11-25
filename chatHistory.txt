@@ -1,0 +1,7 @@
+(15:52:25) [I_AM_STUPID] logged in
+2020.11.25 at 16:22:45) [newUser01] logged in
+hello world
+hello world
+(25.11.2020 at 16:38:52) [user2] logged in
+(25.11.2020 at 16:39:45) [user2]: hi everyone
+(25.11.2020 at 16:40:06) [user2] logout :(

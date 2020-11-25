@@ -19,7 +19,7 @@ public class ChatClient {
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         Request request = new Request.Builder()
                 .post(RequestBody.create(mediaType, "name=" + name))
-                .url(PROTOCOL + HOST + PORT + "/chat/login")
+                .url(/*PROTOCOL + HOST + PORT + */"http://localhost:8080/api/chat/login")
                 .build();
 
         return client.newCall(request).execute();

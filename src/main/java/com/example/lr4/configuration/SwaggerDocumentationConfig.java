@@ -19,8 +19,8 @@ public class SwaggerDocumentationConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Чат.")
-                .description("Balance.")
+                .title("Чат на Java")
+                .description("https://github.com/kassfb/JavaChatApp")
                 .license("")
                 .licenseUrl("http://unlicense.org")
                 .termsOfServiceUrl("")

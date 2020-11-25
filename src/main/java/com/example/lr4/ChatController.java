@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +27,23 @@ public class ChatController {
 
     private Queue<String> messages = new ConcurrentLinkedQueue<>();
     private Map<String, String> usersOnline = new ConcurrentHashMap<>();
+
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+    SimpleDateFormat sdfYear = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm:ss");
+    File file = new File("chatHistory.txt");
+
+    public ChatController() throws IOException {
+        if (file.exists()) {
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            while (line != null) {
+                messages.add(line);
+                line = reader.readLine();
+            }
+        }
+    }
 
     /**
      * curl -X POST -i localhost:8080/chat/login -d "name=I_AM_STUPID"
@@ -44,7 +64,18 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Already logged in:(");
         }
         usersOnline.put(name, name);
-        messages.add("[" + name + "] logged in");
+        //messages.add("[" + name + "] logged in");
+        calendar = Calendar.getInstance();
+        String msg = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]" + " logged in";
+        messages.add(msg);
+        try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
+            String text = msg;
+            writer.append(text);
+            writer.append('\n');
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 
@@ -87,10 +118,22 @@ public class ChatController {
         //return new ResponseEntity<>(HttpStatus.BAD_REQUEST);//TODO
         if (usersOnline.containsKey(name)) {
             usersOnline.remove(name);
-            messages.add("[" + name + "] Logout :(");
-            //return ResponseEntity.badRequest().body("NOT logged in:(");
+            calendar = Calendar.getInstance();
+            String msg = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]" + " logout :(";
+            messages.add(msg);
+            try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
+                String text = msg;
+                writer.append(text);
+                writer.append('\n');
+                writer.flush();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            return ResponseEntity.ok().build();
         }
-        return ResponseEntity.ok().build();
+        else {
+            return ResponseEntity.badRequest().body(name + " NOT logged in:(");
+        }
     }
 
 
@@ -106,7 +149,17 @@ public class ChatController {
         if (!usersOnline.containsKey(name)) {
             return ResponseEntity.badRequest().body("NOT logged in:(");
         }
-        messages.add("[" + name + "]: " + msg);
+        calendar = Calendar.getInstance();
+        String msgTime = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]: " + msg;
+        messages.add(msgTime);
+        try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
+            String text = msgTime;
+            writer.append(text);
+            writer.append('\n');
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
         return ResponseEntity.ok().build();//TODO ResponseEntity.ok().build();
     }
 }
