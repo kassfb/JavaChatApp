@@ -5,3 +5,44 @@ hello world
 (25.11.2020 at 16:38:52) [user2] logged in
 (25.11.2020 at 16:39:45) [user2]: hi everyone
 (25.11.2020 at 16:40:06) [user2] logout :(
+(26.11.2020 at 08:36:00) [I_AM_STUPID] logged in
+(26.11.2020 at 08:42:05) [user111] logged in
+(26.11.2020 at 08:58:09) [I_AM_STUPID] logged in
+(26.11.2020 at 09:06:33) [I_AM_STUPID] logged in
+(26.11.2020 at 09:07:06) [I_AM_STUPID] logged in
+(26.11.2020 at 09:08:44) [I_AM_STUPID] logged in
+(26.11.2020 at 09:13:57) [I_AM_STUPID] logged in
+(26.11.2020 at 09:13:57) [I_AM_STUPID] logout :(
+(26.11.2020 at 09:25:17) [I_AM_STUPID] logged in
+(26.11.2020 at 09:25:17) [I_AM_STUPID] logout :(
+(26.11.2020 at 09:26:00) [I_AM_STUPID] logged in
+(26.11.2020 at 09:26:00) [I_AM_STUPID] logout :(
+(26.11.2020 at 09:26:33) [I_AM_STUPID] logged in
+(26.11.2020 at 09:26:33) [I_AM_STUPID] logout :(
+(26.11.2020 at 09:27:33) [I_AM_STUPID] logged in
+(26.11.2020 at 09:34:12) [I_AM_STUPID] logged in
+(26.11.2020 at 09:34:12) [I_AM_STUPID]: KILL_ME_SOMEONE
+(26.11.2020 at 09:38:39) [I_AM_STUPID] logged in
+(26.11.2020 at 09:38:39) [I_AM_STUPID]: KILL_ME_SOMEONE
+(26.11.2020 at 09:39:56) [I_AM_STUPID] logged in
+(26.11.2020 at 09:39:56) [I_AM_STUPID]: KILL_ME_SOMEONE
+(26.11.2020 at 09:40:23) [I_AM_STUPID] logged in
+(26.11.2020 at 09:40:23) [I_AM_STUPID] logout :(
+(26.11.2020 at 09:40:23) [I_AM_STUPID] logged in
+(26.11.2020 at 09:50:24) [viewUserTest] logged in
+(26.11.2020 at 09:51:20) [logoutTest] logged in
+(26.11.2020 at 09:51:20) [logoutTest] logout :(
+(26.11.2020 at 09:52:07) [sayTest] logged in
+(26.11.2020 at 09:52:07) [sayTest]: KILL_ME_SOMEONE
+(26.11.2020 at 09:52:24) [logoutTest] logged in
+(26.11.2020 at 09:52:24) [logoutTest] logout :(
+(26.11.2020 at 09:52:24) [I_AM_STUPID] logged in
+(26.11.2020 at 09:52:24) [viewUserTest] logged in
+(26.11.2020 at 09:52:24) [sayTest] logged in
+(26.11.2020 at 09:52:24) [sayTest]: KILL_ME_SOMEONE
+(26.11.2020 at 09:54:39) [logoutTest] logged in
+(26.11.2020 at 09:54:39) [logoutTest] logout :(
+(26.11.2020 at 09:54:39) [I_AM_STUPID] logged in
+(26.11.2020 at 09:54:39) [viewUserTest] logged in
+(26.11.2020 at 09:54:39) [sayTest] logged in
+(26.11.2020 at 09:54:39) [sayTest]: KILL_ME_SOMEONE
