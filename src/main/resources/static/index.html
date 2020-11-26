@@ -32,7 +32,7 @@
     function loadHistory() {
         var settings = {
             "crossDomain": true,
-            "url": "http://" + host + ":" + port + "/chat/chat",
+            "url": "http://" + host + ":" + port + "/api/chat/chat",
             "method": "GET",
         }
 
@@ -51,7 +51,7 @@
         var settings = {
             "method": "POST",
             "crossDomain": true,
-            "url": "http://" + host + ":" + port + "/chat/say",
+            "url": "http://" + host + ":" + port + "/api/chat/say",
             "data": name + "&" + msg
         };
 
@@ -70,7 +70,7 @@
         var settings = {
             "method": "POST",
             "crossDomain": true,
-            "url": "http://" + host + ":" + port + "/chat/login",
+            "url": "http://" + host + ":" + port + "/api/chat/login",
             "data": name
         };
 
@@ -88,7 +88,7 @@
         var settings = {
             "method": "POST",
             "crossDomain": true,
-            "url": "http://" + host + ":" + port + "/chat/logout",
+            "url": "http://" + host + ":" + port + "/api/chat/logout",
             "data": name
         };
 
