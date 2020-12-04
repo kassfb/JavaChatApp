@@ -11,7 +11,9 @@ import java.sql.SQLException;
 
 @SpringBootApplication
 public class Lr4Application {
-
+	// Смотреть:
+ // https://spring.io/guides/gs/accessing-data-jpa/
+	// https://github.com/spring-guides/gs-accessing-data-jpa
 	public static void main(String[] args) throws NullPointerException {
 
 		SpringApplication.run(Lr4Application.class, args);
