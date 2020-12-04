@@ -1,7 +1,9 @@
 package com.example.lr4;
 
+import com.example.lr4.models.MessagesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("chat")
 public class ChatController {
+    @Autowired
+    MessagesRepository messagesRepository;
     private static final Logger log = LoggerFactory.getLogger(ChatController.class);
 
     private Queue<String> messages = new ConcurrentLinkedQueue<>();
@@ -101,6 +105,7 @@ public class ChatController {
             method = RequestMethod.GET,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity online() {
+        long i= messagesRepository.count();
         return new ResponseEntity<>(usersOnline.keySet().stream().map(Object::toString)
                 .collect(Collectors.joining("\n")),
                 HttpStatus.OK);
