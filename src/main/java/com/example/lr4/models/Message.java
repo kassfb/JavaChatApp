@@ -3,11 +3,11 @@ package com.example.lr4.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "messages")
-public class Messages {
+@Table(name = "message")
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int messageId;
+    private Long messageId;
 
     @Column (name = "message")
     private String message;
@@ -20,16 +20,16 @@ public class Messages {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users userId;
+    private User userId;
 
-    public Messages() {
+    public Message() {
     }
 
-    public Messages(String message) {
+    public Message(String message) {
         this.message = message;
     }
 
-    public int getMessageId() {
+    public Long getMessageId() {
         return messageId;
     }
 
@@ -41,11 +41,11 @@ public class Messages {
         this.message = message;
     }
 
-    public Users getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Users userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
