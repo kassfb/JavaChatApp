@@ -46,3 +46,15 @@ hello world
 (26.11.2020 at 09:54:39) [viewUserTest] logged in
 (26.11.2020 at 09:54:39) [sayTest] logged in
 (26.11.2020 at 09:54:39) [sayTest]: KILL_ME_SOMEONE
+(03.12.2020 at 17:05:47) [logoutTest] logged in
+(03.12.2020 at 17:05:47) [logoutTest] logout :(
+(03.12.2020 at 17:05:48) [I_AM_STUPID] logged in
+(03.12.2020 at 17:05:48) [viewUserTest] logged in
+(03.12.2020 at 17:05:48) [sayTest] logged in
+(03.12.2020 at 17:05:48) [sayTest]: KILL_ME_SOMEONE
+(03.12.2020 at 17:06:09) [logoutTest] logged in
+(03.12.2020 at 17:06:09) [logoutTest] logout :(
+(03.12.2020 at 17:06:09) [I_AM_STUPID] logged in
+(03.12.2020 at 17:06:09) [viewUserTest] logged in
+(03.12.2020 at 17:06:09) [sayTest] logged in
+(03.12.2020 at 17:06:09) [sayTest]: KILL_ME_SOMEONE

@@ -3,33 +3,28 @@ package com.example.lr4.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "messages")
-public class Messages {
+@Table(name = "message")
+public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int messageId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long messageId;
 
     @Column (name = "message")
     private String message;
 
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "user_id")
+    private Long userId;
+    //private Users userId;
 
-//можно не указывать Column name, если оно совпадает с названием столбца в таблице
-
-    //private String color;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users userId;
-
-    public Messages() {
+    protected Message() {
     }
 
-    public Messages(String message) {
+    public Message(String message) {
         this.message = message;
     }
 
-    public int getMessageId() {
+    public Long getMessageId() {
         return messageId;
     }
 
@@ -41,11 +36,12 @@ public class Messages {
         this.message = message;
     }
 
-    public Users getUserId() {
+    //public Users getUserId() { return userId;  }
+    public Long getUserId() {
         return userId;
     }
-
-    public void setUserId(Users userId) {
+    //public void setUserId(Users userId) { this.userId = userId; }
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
