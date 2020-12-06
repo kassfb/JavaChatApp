@@ -20,7 +20,7 @@ public class Users {
     //можно не указывать Column name, если оно совпадает с названием столбца в таблице
 
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Messages> messages;
 
     public Users() {
