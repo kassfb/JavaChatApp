@@ -24,33 +24,33 @@ public class Lr4Application {
 		//databaseTest();
 	}
 
-	@Bean
-	public CommandLineRunner demo (UserRepository repository) {
-		return (args) -> {
-			repository.save(new User("vova","4321"));
-			repository.save(new User("sasha","1234"));
-			repository.save(new User("petya","qwerty"));
-			log.info("Users found with findAll():");
-			log.info("-------------------------------");
-			for (User user : repository.findAll()){
-				log.info(user.toString());
-			}
-			log.info("");
-
-			User user = repository.findById(1L);
-			log.info("User found with findById(1L):");
-			log.info("--------------------------------");
-			log.info(user.toString());
-			log.info("");
-
-			log.info("User found with findByUserName('sasha'):");
-			log.info("--------------------------------------------");
-			repository.findByUserName("sasha").forEach(sasha -> {
-				log.info(sasha.toString());
-			});
-			log.info("");
-		};
-	}
+//	@Bean
+//	public CommandLineRunner demo (UserRepository repository) {
+//		return (args) -> {
+//			repository.save(new User("vova","4321"));
+//			repository.save(new User("sasha","1234"));
+//			repository.save(new User("petya","qwerty"));
+//			log.info("Users found with findAll():");
+//			log.info("-------------------------------");
+//			for (User user : repository.findAll()){
+//				log.info(user.toString());
+//			}
+//			log.info("");
+//
+//			User user = repository.findById(1L);
+//			log.info("User found with findById(1L):");
+//			log.info("--------------------------------");
+//			log.info(user.toString());
+//			log.info("");
+//
+//			log.info("User found with findByUserName('sasha'):");
+//			log.info("--------------------------------------------");
+//			repository.findByUserName("sasha").forEach(sasha -> {
+//				log.info(sasha.toString());
+//			});
+//			log.info("");
+//		};
+//	}
 
 //	public static void databaseTest() {
 //		UserService userService = new UserService();

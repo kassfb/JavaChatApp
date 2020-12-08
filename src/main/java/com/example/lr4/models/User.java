@@ -1,11 +1,14 @@
 package com.example.lr4.models;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+//@Component
 @Entity
-@Table (name = "user")
+@Table (name = "userName")
 public class User {
 
     @Id
@@ -24,6 +27,7 @@ public class User {
     private List<Message> messages;
 
     public User() {
+        messages = new ArrayList<>();
     }
 
     public User(String userName, String password) {
@@ -77,4 +81,11 @@ public class User {
                 ", password=" + password +
                 '}';
     }
+
+//    @Override
+//    public List<User> getAllUsersOnline(User user) {
+//        List<User> userOnlineList = null;
+//        userOnlineList.add(user);
+//        return userOnlineList;
+//    }
 }

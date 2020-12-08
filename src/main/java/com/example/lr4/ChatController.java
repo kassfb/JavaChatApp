@@ -1,6 +1,9 @@
 package com.example.lr4;
 
+import com.example.lr4.models.Message;
 import com.example.lr4.models.MessageRepository;
+import com.example.lr4.models.User;
+import com.example.lr4.models.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,14 @@ import java.util.stream.Collectors;
 public class ChatController {
     @Autowired
     MessageRepository messagesRepository;
+    @Autowired
+    UserRepository userRepository;
+    //@Autowired
+    //User newUser = new User();
+    User newUser;
+    //@Autowired
+    //Message newMessage = new Message();
+    Message newMessage;
     private static final Logger log = LoggerFactory.getLogger(ChatController.class);
 
     private Queue<String> messages = new ConcurrentLinkedQueue<>();
@@ -72,6 +83,25 @@ public class ChatController {
         calendar = Calendar.getInstance();
         String msg = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]" + " logged in";
         messages.add(msg);
+
+        //userRepository.save(new User(name, name));
+        newUser = new User();
+        newMessage = new Message();
+        newUser.setUserName(name);
+        newUser.setPassword(name);
+
+        newMessage.setMessage(msg);
+        newMessage.setUserId(newUser);
+        newUser.addMessage(newMessage);//?????
+        userRepository.save(newUser);
+        messagesRepository.save(newMessage);
+        //messagesRepository.save(new Message(msg));
+        //newUser.addMessage(newMessage);
+        //newMessage.setUserId(newUser);
+        //String consoleLoginOut = newUser.toString();
+        //System.out.println(newUser.toString());
+        //System.out.println(newMessage.toString());
+
         try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
             String text = msg;
             writer.append(text);
@@ -105,7 +135,8 @@ public class ChatController {
             method = RequestMethod.GET,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity online() {
-        long i= messagesRepository.count();
+        //long i= messagesRepository.count();
+        //userRepository.getAllUsersOnline();
         return new ResponseEntity<>(usersOnline.keySet().stream().map(Object::toString)
                 .collect(Collectors.joining("\n")),
                 HttpStatus.OK);
@@ -120,12 +151,20 @@ public class ChatController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity logout(@RequestParam("name") String name) {
-        //return new ResponseEntity<>(HttpStatus.BAD_REQUEST);//TODO
+        //WITHOUT DATABASE
         if (usersOnline.containsKey(name)) {
             usersOnline.remove(name);
+            //WITH DATABASE
+            //newUser.setUserName(name);
+            userRepository.delete(newUser);//!!Удаляет последнего залогиненого пользователя, а не по userName
+            //
             calendar = Calendar.getInstance();
             String msg = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]" + " logout :(";
             messages.add(msg);
+            //WITH DATABASE
+            //newMessage.setMessage(msg);
+            //messagesRepository.save(newMessage);
+            //
             try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
                 String text = msg;
                 writer.append(text);
