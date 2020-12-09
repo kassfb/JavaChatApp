@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("chat")
 public class ChatController {
     @Autowired
-    MessageRepository messagesRepository;
+    MessageRepository messageRepository;
     @Autowired
     UserRepository userRepository;
     //@Autowired
@@ -41,7 +41,9 @@ public class ChatController {
     private static final Logger log = LoggerFactory.getLogger(ChatController.class);
 
     private Queue<String> messages = new ConcurrentLinkedQueue<>();
-    private Map<String, String> usersOnline = new ConcurrentHashMap<>();
+    //private Map<String, String> usersOnline = new ConcurrentHashMap<>();
+    //private Map<User, String> usersOnline = new ConcurrentHashMap<>();
+    private Map<String, User> usersOnline = new ConcurrentHashMap<>();
 
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
@@ -76,28 +78,23 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Too long name, sorry :(");
         }
         if (usersOnline.containsKey(name)) {
+        //if (usersOnline.containsValue(name)) {
             return ResponseEntity.badRequest().body("Already logged in:(");
         }
-        usersOnline.put(name, name);
-        //messages.add("[" + name + "] logged in");
         calendar = Calendar.getInstance();
         String msg = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]" + " logged in";
         messages.add(msg);
-
-        //userRepository.save(new User(name, name));
+        //TO DATABASE
         newUser = new User();
         newMessage = new Message();
         newUser.setUserName(name);
         newUser.setPassword(name);
-
         newMessage.setMessage(msg);
         newMessage.setUserId(newUser);
         newUser.addMessage(newMessage);//?????
+        usersOnline.put(name, newUser);
         userRepository.save(newUser);
-        messagesRepository.save(newMessage);
-        //messagesRepository.save(new Message(msg));
-        //newUser.addMessage(newMessage);
-        //newMessage.setUserId(newUser);
+        messageRepository.save(newMessage);
         //String consoleLoginOut = newUser.toString();
         //System.out.println(newUser.toString());
         //System.out.println(newMessage.toString());
@@ -135,7 +132,7 @@ public class ChatController {
             method = RequestMethod.GET,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity online() {
-        //long i= messagesRepository.count();
+        //long i= messageRepository.count();
         //userRepository.getAllUsersOnline();
         return new ResponseEntity<>(usersOnline.keySet().stream().map(Object::toString)
                 .collect(Collectors.joining("\n")),
@@ -151,20 +148,14 @@ public class ChatController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity logout(@RequestParam("name") String name) {
-        //WITHOUT DATABASE
         if (usersOnline.containsKey(name)) {
+            userRepository.delete(usersOnline.get(name));
             usersOnline.remove(name);
-            //WITH DATABASE
             //newUser.setUserName(name);
-            userRepository.delete(newUser);//!!Удаляет последнего залогиненого пользователя, а не по userName
-            //
+            //userRepository.delete(newUser);//!!Удаляет последнего залогиненого пользователя, а не по userName
             calendar = Calendar.getInstance();
             String msg = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]" + " logout :(";
             messages.add(msg);
-            //WITH DATABASE
-            //newMessage.setMessage(msg);
-            //messagesRepository.save(newMessage);
-            //
             try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
                 String text = msg;
                 writer.append(text);
@@ -194,10 +185,17 @@ public class ChatController {
             return ResponseEntity.badRequest().body("NOT logged in:(");
         }
         calendar = Calendar.getInstance();
-        String msgTime = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]: " + msg;
-        messages.add(msgTime);
+        String msgSay = "(" + sdfYear.format(calendar.getTime()) + ") [" + name + "]: " + msg;
+        messages.add(msgSay);
+        //TO DATABASE
+        newMessage = new Message();
+        newMessage.setMessage(msgSay);
+        newMessage.setUserId(usersOnline.get(name));
+        usersOnline.get(name).addMessage(newMessage);//??? добаляю User'у в List<Message> messages сообщение
+        messageRepository.save(newMessage);
+        //
         try (FileWriter writer = new FileWriter("chatHistory.txt", true)) {
-            String text = msgTime;
+            String text = msgSay;
             writer.append(text);
             writer.append('\n');
             writer.flush();
