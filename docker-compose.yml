@@ -1,0 +1,62 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: db_container
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      #      POSTGRES_HOST: postgres
+      POSTGRES_DB: chatdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pg_data1:/var/lib/postgresql/data #./pg_data:/var/lib/postgresql/data for future postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - 5050:80
+    restart: unless-stopped
+
+  chat:
+    image: kassfb/javachat:latest
+    container_name: chat_container
+    restart: always
+    environment:
+      DB_SERVER: db
+      DB_NAME: chatdb
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - 8080:8080
+    #volumes:
+      #- ./logs:/logs
+      #- ./https:/https
+    depends_on:
+      - db
+
+  portainer:
+    image:  portainer/portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: unless-stopped
+
+volumes:
+  pgadmin:
+  #postgres:
+  portainer_data:
+    driver: local
+
