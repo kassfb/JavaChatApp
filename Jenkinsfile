@@ -11,9 +11,10 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("First step") {
+        stage("start docker-compose") {
             steps {
-                sh 'ssh root@ub1 \'hostname\''
+                echo " ============== start building images =================="
+                sh 'docker-compose up -d'
             }
         }
     }
