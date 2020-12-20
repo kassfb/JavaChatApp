@@ -1,5 +1,3 @@
-#!groovy
-// Check ub1 properties
 properties([disableConcurrentBuilds()])
 
 pipeline {
@@ -14,9 +12,15 @@ pipeline {
         stage("start docker-compose") {
             steps {
                 echo " ============== start building images =================="
-                sh 'sudo docker-compose build'
-                sh 'sudo docker-compose up -d'
+                //sh 'sudo docker-compose build'
+                //sh 'sudo docker-compose up -d'
+                //echo " ============== finish building images =================="
             }
+        }
+        stage("finish docker-compose") {
+                steps {
+                    echo " ============== finish building images =================="
+                }
         }
     }
 }
